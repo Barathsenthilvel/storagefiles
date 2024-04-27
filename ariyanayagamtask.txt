@@ -1,0 +1,204 @@
+transaction.balde.php
+<style>
+    /* Custom radio button styling */
+    .custom-radio {
+        position: relative;
+        padding-left: 30px;
+        cursor: pointer;
+    }
+
+    .custom-radio input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Radio button dot */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+
+    /* When the radio button is checked, change the dot color */
+    .custom-radio input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Show a dot inside the radio button when checked */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the dot inside the radio button when checked */
+    .custom-radio input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the dot */
+    .custom-radio .checkmark:after {
+        top: 6px;
+        left: 6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+</style>
+
+
+   <li><a data-toggle="tab" class="show-pointer" data-target="#utrVerificationForm">Total
+                                    Verify Transcation</a></li>
+
+
+
+                            <!-- <div id="verify-transaction" class="tab-pane fade"> -->
+                            <div id="utrVerificationForm" class="tab-pane fade">
+    <form method="POST">
+    @csrf
+        <label for="utrTransactionId">Enter Transaction ID</label>
+        <input type="text" id="utrTransactionId" placeholder="Transaction ID" style="border-radius: 32px;"><br><br>
+
+        <!-- Custom styled radio buttons -->
+        <label class="custom-radio" for="utrVerifyBtn">UTR number
+            <input type="radio" name="verificationType" id="utrVerifyBtn" value="0">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="custom-radio" for="evokVerifyBtn">Evok ID
+            <input type="radio" name="verificationType" id="evokVerifyBtn" value="1">
+            <span class="checkmark"></span>
+        </label>
+
+        <button type="button" class="btn btn-primary" id="verifyBtn">Verify</button>
+    </form>
+</div>
+
+</div>
+
+<!-- new scrip-t f8iole for veri9fy transction  -->
+<script>
+$('#verifyBtn').click(function() {
+    var verificationType = $('input[name="verificationType"]:checked').val();
+    var transactionId = $('#utrTransactionId').val();
+
+    if (!verificationType) {
+        alert('Please select a verification type.');
+        return;
+    }
+
+    // Get CSRF token value
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    // Make AJAX request to verify transaction
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('verify-transaction') }}', // Corrected route name
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        data: {
+            transactionId: transactionId,
+            selectedValue: verificationType
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                // Show modal with data
+                var data = response.data[0];
+                $('#customerName').text(data.customerName);
+                $('#respCode').text(data.respCode);
+                $('#myModal').modal('show');
+            } else {
+                alert('Failed to verify transaction: ' + response.error);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error: ' + error);
+        }
+    });
+});
+
+</script>
+
+================
+web.php
+use App\Http\Controllers\TransactionController;
+Route::post('/verify-transaction', [TransactionController::class, 'verifyTransaction'])->name('verify-transaction');
+================
+verifycsrf token
+'verify-transaction'
+=========================
+TranscastionContoller.php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class TransactionController extends Controller
+{
+    public function verifyTransaction(Request $request)
+    {
+        // Define API URLs
+        $apiUrls = [
+            '0' => 'https://paymentgateway.flakpay.com/api/v1/getQRStatusRRN',
+            '1' => 'https://paymentgateway.flakpay.com/api/v1/getQRStatus'
+        ];
+
+        // Get the selected value and transaction ID from the request
+        $selectedValue = $request->input('selectedValue');
+        $transactionId = $request->input('transactionId');
+
+        // Validate the selected value
+        if ($selectedValue !== null && array_key_exists($selectedValue, $apiUrls)) {
+            $utrApiUrl = $apiUrls[$selectedValue];
+
+            // Validate the transaction ID
+            if ($transactionId !== null && !empty($transactionId)) {
+                // Make cURL request
+                $curl = curl_init();
+
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => $utrApiUrl,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_POSTFIELDS => http_build_query(['transactionId' => $transactionId]),
+                ]);
+
+                $response = curl_exec($curl);
+
+                if (curl_errno($curl)) {
+                    $error = curl_error($curl);
+                    return response()->json(['success' => false, 'error' => "cURL Error: $error"]);
+                } else {
+                    $responseData = json_decode($response, true);
+
+                    if (!empty($responseData['data'])) {
+                        return response()->json(['success' => true, 'data' => $responseData['data']]);
+                    } else {
+                        return response()->json(['success' => false, 'error' => 'No data found']);
+                    }
+                }
+
+                curl_close($curl);
+            } else {
+                return response()->json(['success' => false, 'error' => 'Transaction ID is empty']);
+            }
+        } else {
+            return response()->json(['success' => false, 'error' => 'Invalid selected value']);
+        }
+    }
+}

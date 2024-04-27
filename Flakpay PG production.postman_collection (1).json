@@ -1,0 +1,603 @@
+{
+	"info": {
+		"_postman_id": "18026bb2-49d0-433b-a7b3-0a9faee24520",
+		"name": "Flakpay PG production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20362141",
+		"_collection_link": "https://universal-station-122259.postman.co/workspace/Flakpay~3d081db1-f1a7-4246-8435-861901bd6ff4/collection/20362141-18026bb2-49d0-433b-a7b3-0a9faee24520?action=share&source=collection_link&creator=20362141"
+	},
+	"item": [
+		{
+			"name": "verifyVPA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"upiId\" : \"9578093436@ybl\"\r\n}"
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/verifyVPA",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"verifyVPA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer / UPI Collect Request API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mid\"   : \"900002\",\r\n    \"order_no\"      : \"ORD87525458734r33456\",\r\n    \"currency_name\" : \"INR\",\r\n    \"type\"          : \"S\",\r\n    \"custom_field1\" : \"\",\r\n    \"custom_field2\" : \"\",\r\n    \"custom_field3\" : \"\",\r\n    \"custom_field4\" : \"\",\r\n    \"custom_field5\" : \"\",\r\n    \"city\"          : \"sivaganga\",\r\n    \"email\"         : \"arya@yopmail.com\",\r\n    \"mobile_no\"     : \"9578093436\",\r\n    \"address\"       : \"kollangudi\",\r\n    \"state\"         : \"Tamilnadu\",\r\n    \"pincode\"       : \"630556\",\r\n    \"vpa\"           : \"ariyanayagam18-1@okhdfcbank\",\r\n    \"customername\"  : \"flakpay\",\r\n    \"amount\"        : \"1.00\",\r\n    \"statusKYC\"     : \"Y\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/transfer",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer / UPI Collect SDK Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mid\"   : \"900002\",\r\n    \"order_no\"      : \"ORD87525458734r33456\",\r\n    \"currency_name\" : \"INR\",\r\n    \"type\"          : \"S\",\r\n    \"custom_field1\" : \"\",\r\n    \"custom_field2\" : \"\",\r\n    \"custom_field3\" : \"\",\r\n    \"custom_field4\" : \"\",\r\n    \"custom_field5\" : \"\",\r\n    \"city\"          : \"sivaganga\",\r\n    \"email\"         : \"arya@yopmail.com\",\r\n    \"mobile_no\"     : \"9578093436\",\r\n    \"address\"       : \"kollangudi\",\r\n    \"state\"         : \"Tamilnadu\",\r\n    \"pincode\"       : \"630556\",\r\n    \"vpa\"           : \"ariyanayagam18-1@okhdfcbank\",\r\n    \"customername\"  : \"flakpay\",\r\n    \"amount\"        : \"1.00\",\r\n    \"statusKYC\"     : \"Y\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/transfer",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPI Collect TransactionStatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"extTransactionId\" : \"FLAKP1654HIOIBNZVHVNSGFPRULHVTXSNB\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/TransactionStatus",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"TransactionStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerateQRPayment / UPI Intent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order_no\"      : \"4324546754\",\r\n    \"customername\"  : \"mani\",\r\n    \"currency_name\" : \"INR\",\r\n    \"email\"         : \"kannan@yopmail.com\",\r\n    \"mobile_no\"     : \"1234567890\",\r\n    \"amount\"        : \"10.00\",\r\n    \"type\"          : \"D\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/UPI/transfer",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"UPI",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Production callback test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/fpay/transaction/callback",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"fpay",
+						"transaction",
+						"callback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Production callback Decryption",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "btNKuHDfV3eW+qdnD7ZiX2IDDFHIg77U8RmCJerVl8U+EpSFarFMtVz31uJqRxTX5paFJCD+eg1Vj1ZdEVufjUeLQEzHa+GDJUF3QEqarM85vyOl4YvDrG7O1MKMNcdiLtE2rnN6bv3NSBlHiw4XMDOhmhYIq6uEmef3fivoeORzYLhfS+6\\/DEMDiN3uNTfUDuNhzbntBFfiFnqAjnOtSuG2bdu1PnVSN7stDz0sb4HAUTz5H33Vjeywh9Qwk8ceIYJLa\\/R78kA58HvNSgyGT4Ei1tPiyuh839OP\\/OJoZyS3a+m7uck\\/I1BXVHteS\\/UrChNR5ti5CHASyii4VEarJ49qcTtw\\/XCctmXcdhMkpbghOqsdhe3QxEkR\\/2QPOcMr4lkvdwGdmpDVh5GLBpj4MpZ8ElNPc4GAgkm+afJkn4WQz0h2y6ctaEnVNuk3xy5lR\\/b77d9YiRMhmx2cOIZ5ChWGRRNHJYeJs6wn\\/ogDwDDqLMjdkLQX1bUK5qX\\/0ISsoDnyu8MRrftcgL3MMgZeM6SKWzYxxlaUUfXycxm5c+s="
+				},
+				"url": {
+					"raw": "http://62.72.56.127/evok/decryption.php",
+					"protocol": "http",
+					"host": [
+						"62",
+						"72",
+						"56",
+						"127"
+					],
+					"path": [
+						"evok",
+						"decryption.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Production TransactionReport",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"startDate\":\"2024-01-31 00:00:00\",\r\n \"endDate\":\"2024-01-31 20:00:00\",\r\n \"pageSize\":\"10\",\r\n \"pageNo\":\"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/TransactionReport",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"TransactionReport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QR Payment status by Customerreference Number",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"extTransactionId\" : \"445498037811\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/getQRStatusRRN",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"getQRStatusRRN"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AXIS Payout gettxnStatus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://payout.payhotshopping.com/payout/txnStatus",
+					"protocol": "https",
+					"host": [
+						"payout",
+						"payhotshopping",
+						"com"
+					],
+					"path": [
+						"payout",
+						"txnStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getQRReport",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"startDate\":\"2024-03-02 00:00:00\",\r\n \"endDate\":\"2024-03-02 23:00:00\",\r\n \"pageSize\":\"30\",\r\n \"pageNo\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/getQRReport",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"getQRReport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPI Intent getQRStatus",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/getQRStatus",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"getQRStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Merchant Enable/Disable",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/fpay/merchantPayinStatusUpdate",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"fpay",
+						"merchantPayinStatusUpdate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://paymentgateway.flakpay.com/fpay/evok/getrecenttransaction/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/fpay/evok/getrecenttransaction/update",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"fpay",
+						"evok",
+						"getrecenttransaction",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "wildline callback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://payment.bluepondtec.in/gateway/payment/flakpay/notify",
+					"protocol": "https",
+					"host": [
+						"payment",
+						"bluepondtec",
+						"in"
+					],
+					"path": [
+						"gateway",
+						"payment",
+						"flakpay",
+						"notify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transcationupdate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fpy_txnid\":\"FPAY90005217127954824780a471b0\",\r\n    \"txn_status\":\"2\",\r\n    \"acqrbank_txnid\":\"APLAPba1e029d193f975f2a312147e89f9f\",\r\n    \"rrn_no\" :\"410232775380\",\r\n    \"evok_txnid\": \"FLAKPAYGKXZRPEXXARLEEEQMJSHYSIYZ\",\r\n    \"responsetime\": \"2024-04-12 12:50:56\"\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n// ,\r\n// YBLbcd5c6cffceb462f9053915f1adb6e0c\r\n// 410204966615\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://merchants.flakpay.com/transactionsupdate",
+					"protocol": "https",
+					"host": [
+						"merchants",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"transactionsupdate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction Insert Admin API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://admin.flakpay.com/payintranscationinsert",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"payintranscationinsert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTXNStatus to Merchant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fpay-api-key",
+						"value": "Dz4FldnrJ5vTKCejVPFXOz5Iu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"order_Id\" : \"IN842541514441860\",\r\n    \"fpay_txnId\" : \"FPAY90007617128267059fc338f048\"\r\n}\r\n\r\n\r\n// ,FPAY900052171257764751ffbeb92d\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/UPI/Intent/getTXNStatus",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"UPI",
+						"Intent",
+						"getTXNStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://paymentgateway.flakpay.com/api/v1/getFlakpayDetails",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"evok_id\" : \"FLAKPAYACZTMHTHUVWGDUXCAJLAOJYSM\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://paymentgateway.flakpay.com/api/v1/getFlakpayDetails/",
+					"protocol": "https",
+					"host": [
+						"paymentgateway",
+						"flakpay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"getFlakpayDetails",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
